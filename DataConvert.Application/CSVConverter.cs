@@ -14,13 +14,14 @@ namespace DataConvert.Application
         {
             using (var sr = new StreamReader(csv))
             {
-                string csvText = sr.ReadToEnd();
-                var jsonArray = ConvertCSVStringToJsonArray(csvText);
-                return ConvertJsonArrayToString(jsonArray);
+                string csvString = sr.ReadToEnd();
+                return ConvertCSVStringToJson(csvString);
             };
         }
 
-        public static string ConvertToJson(string csvString)
+        public static string ConvertToJson(string csvString) => ConvertCSVStringToJson(csvString);
+
+        private static string ConvertCSVStringToJson(string csvString)
         {
             var jsonArray = ConvertCSVStringToJsonArray(csvString);
             return ConvertJsonArrayToString(jsonArray);
@@ -31,21 +32,6 @@ namespace DataConvert.Application
             JsonSerializerOptions options = new() { WriteIndented = true };
 
             return JsonSerializer.Serialize(jsonArray, options);
-        }
-
-        private static dynamic? GetFieldValue(string field)
-        {
-            dynamic? result = field;
-
-            if(decimal.TryParse(field, out var value))
-                result = value;
-
-            if (field == "true" || field == "false")
-                result = field == "true";
-            if (string.IsNullOrEmpty(field) || field == "null")
-                result = null;
-
-            return result;
         }
 
         private static JsonArray ConvertCSVStringToJsonArray(string csvString)
@@ -62,16 +48,28 @@ namespace DataConvert.Application
 
                 for (int i = 0; i < fields.Length; i++)
                 {
-                    var value = GetFieldValue(fields[i]);
-
-                    element[headers[i]] = value is not null? JsonValue.Create(value) : null;
-
+                    element[headers[i]] = GetFieldValue(fields[i]);
                 }
 
                 jsonArray.Add(element);
             }
 
             return jsonArray;
+        }
+
+        private static dynamic? GetFieldValue(string field)
+        {
+            dynamic? result = field;
+
+            if (decimal.TryParse(field, out var value))
+                result = value;
+
+            if (field == "true" || field == "false")
+                result = field == "true";
+            if (string.IsNullOrEmpty(field) || field == "null")
+                result = null;
+
+            return result is not null ? JsonValue.Create(result) : null;
         }
     }
 }
