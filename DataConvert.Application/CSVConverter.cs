@@ -10,7 +10,7 @@ namespace DataConvert.Application
 {
     public class CSVConverter
     {
-        public static string ConvertToJson(Stream csv)
+        public static string ConvertToJsonString(Stream csv)
         {
             using (var sr = new StreamReader(csv))
             {
@@ -19,7 +19,7 @@ namespace DataConvert.Application
             };
         }
 
-        public static string ConvertToJson(string csvString) => ConvertCSVStringToJson(csvString);
+        public static string ConvertToJsonString(string csvString) => ConvertCSVStringToJson(csvString);
 
         private static string ConvertCSVStringToJson(string csvString)
         {
@@ -45,10 +45,22 @@ namespace DataConvert.Application
             {
                 var fields = line.Split(",");
                 var element = new JsonObject();
+                var childObject = new JsonObject();
 
-                for (int i = 0; i < fields.Length; i++)
+                for (int i = 0; i < headers.Length; i++)
                 {
-                    element[headers[i]] = GetFieldValue(fields[i]);
+                    if (headers[i].Contains('_'))
+                    {
+                        var splitHeaders = headers[i].Split("_");
+
+                        childObject[splitHeaders[1]] = GetFieldValue(fields[i]);
+
+                        element[splitHeaders[0]] = childObject;
+                    }
+                    else
+                    {
+                        element[headers[i]] = GetFieldValue(fields[i]);
+                    }
                 }
 
                 jsonArray.Add(element);

@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DataConvert.Application\DataConvert.Application.csproj" />
+  </ItemGroup>
+
 </Project>

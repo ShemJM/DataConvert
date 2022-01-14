@@ -4,15 +4,19 @@
     "forename": "bob",
     "surname": "jones",
     "deceased": true,
-    "account_balance": 32.00,
-    "account_jointholder": null
+    "account": {
+      "balance": 32.00,
+      "jointholder": null
+    }
   },
   {
     "id": 2,
     "forename": "john",
     "surname": "stone",
     "deceased": false,
-    "account_balance": 1000.43,
-    "account_jointholder": null
+    "account": {
+      "balance": 1000.43,
+      "jointholder": null
+    }
   }
 ]
