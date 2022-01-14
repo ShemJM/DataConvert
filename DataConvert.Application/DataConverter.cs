@@ -8,13 +8,25 @@ namespace DataConvert.Application
 {
     public class DataConverter
     {
-        public static void ProcessInput(string filePath, InputTypes inputType, OutputTypes[] outputTypes)
+        public static string ProcessInput(string filePath, InputTypes inputType, OutputTypes outputType)
         {
+            string result = string.Empty;
             switch (inputType)
             {
                 case InputTypes.CSV:
+                    using (var testCsvStream = File.Open(filePath, FileMode.Open))
+                    {
+                        using (var sr = new StreamReader(testCsvStream))
+                        {
+                            string csvText = sr.ReadToEnd();
+                            result = CSVConverter.ConvertToJsonString(csvText);
+                            
+                        };
+                    }
                     break;
             }
+
+            return result;
         }
     }
 }
