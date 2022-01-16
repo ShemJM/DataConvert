@@ -10,6 +10,25 @@ namespace DataConvert.Application
 {
     public class CSVConverter
     {
+        public static string ConvertCSV(Stream csv, OutputTypes outputType)
+        {
+            switch (outputType)
+            {
+                case OutputTypes.JSON:
+                    return ConvertToJsonString(csv);
+                case OutputTypes.XML:
+                    return ConvertToXMLString(csv);
+                default: throw new NotImplementedException();
+            }
+        }
+
+        public static string ConvertToXMLString(Stream csv)
+        {
+            var json = ConvertToJsonString(csv);
+
+            return JsonConverter.ConvertToXML(json);
+        }
+
         public static string ConvertToJsonString(Stream csv)
         {
             using (var sr = new StreamReader(csv))

@@ -18,8 +18,7 @@ namespace DataConvert.Application
                     {
                         using (var sr = new StreamReader(testCsvStream))
                         {
-                            string csvText = sr.ReadToEnd();
-                            result = CSVConverter.ConvertToJsonString(csvText);
+                            result = CSVConverter.ConvertCSV(sr.BaseStream, outputType);
                             
                         };
                     }

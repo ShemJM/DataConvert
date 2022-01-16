@@ -1,0 +1,22 @@
+﻿<root>
+	<Row>
+		<id>1</id>
+		<forename>bob</forename>
+		<surname>jones</surname>
+		<deceased>true</deceased>
+		<account>
+			<balance>32</balance>
+			<jointholder />
+		</account>
+	</Row>
+	<Row>
+		<id>2</id>
+		<forename>john</forename>
+		<surname>stone</surname>
+		<deceased>false</deceased>
+		<account>
+			<balance>1000.43</balance>
+			<jointholder />
+		</account>
+	</Row>
+</root>

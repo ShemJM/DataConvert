@@ -23,14 +23,19 @@ switch (Console.ReadLine())
 }
 
 Console.WriteLine("Please select an Input type");
+
 foreach (var outputType in Enum.GetValues(typeof(OutputTypes)))
 {
     Console.WriteLine($"{(int)outputType}) {outputType.ToString()}");
 }
+
 switch (Console.ReadLine())
 {
     case "0":
         selectedOutput = OutputTypes.JSON;
+        break;
+    case "1":
+        selectedOutput = OutputTypes.XML;
         break;
     default:
         throw new NotImplementedException();
