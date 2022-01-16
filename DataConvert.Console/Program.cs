@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DataConvert.Application;
+using System.Linq;
 
 InputTypes selectedInput;
 OutputTypes selectedOutput;
@@ -22,7 +23,7 @@ switch (Console.ReadLine())
         throw new NotImplementedException();
 }
 
-Console.WriteLine("Please select an Input type");
+Console.WriteLine("Please select an Output type");
 
 foreach (var outputType in Enum.GetValues(typeof(OutputTypes)))
 {
